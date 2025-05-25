@@ -9,10 +9,13 @@
                 </tr>
             </thead>
             <tbody class="scroll-body">
-                <tr v-for="country in filteredCountries" :key="country.ccn3">
+                <tr v-for="country in filteredCountries" :key="country.cca3 || country.name.common">
                     <td>
                         <div class="flag-cell">
-                            <img :src="country.flags.png" :alt="country.flags.alt" width="50" height="30">
+                            <img :src="country.flags.png" :alt="country.flags.alt || 'Flag of ' + country.name.common" width="50" height="30">
+                        </div>
+                        <div>
+
                         </div>
                     </td>
                     <td>
@@ -37,7 +40,7 @@ export default {
     },
     data() {
         return {
-            gridColumns: ['Flag', 'Name', 'Capital'],
+            gridColumns: ['Flag','Name', 'Capital'],
         }
     },
     computed: {

@@ -2,7 +2,7 @@
   <h1>List of countries</h1>
   <div v-if="isLoaded">
     <input type="text" placeholder="Search" class="search-input" v-model="searchValue">
-    <CountriesGrid :searchValue="searchValue" :countries="countries"/>
+    <CountriesGrid :searchValue="searchValue" :countries="countries" />
   </div>
   <div v-else class="loader">
   </div>
@@ -28,29 +28,27 @@ export default {
   created() {
     this.fetchData();
   },
- 
-    methods: {
-      async fetchData() {
-        const url = "https://restcountries.com/v3.1/all";
-        try {
-          const response = await fetch(url);
-          if (!response.ok) {
-            throw new Error(`Response status:${response.status}`);
-          }
-          this.countries = await response.json();
 
+  methods: {
+    async fetchData() {
+      const url = "https://restcountries.com/v3.1/all";
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Response status:${response.status}`);
+        }
+        this.countries = await response.json();
+      } catch (error) {
+        console.log(error.message);
+        this.countries = [];
+      }
+      finally {
+        this.isLoaded = true;
 
-        } catch (error) {
-          console.log(error.message);
-          this.countries = [];
-        }
-        finally {
-          this.isLoaded = true;
-         
-        }
       }
     }
   }
+}
 
 </script>
 
